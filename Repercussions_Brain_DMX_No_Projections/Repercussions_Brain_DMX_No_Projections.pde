@@ -63,8 +63,8 @@ void setup() {
   dancer2Address[3] = char(0xBF);
 
 /*****   Setup display window                   *****/
-//  size(840,700);
-  fullScreen();
+  size(840,700);
+  //fullScreen();
   background(0,0,0);
 
 /*****   Initialize Dancer objecys for storage  *****/
