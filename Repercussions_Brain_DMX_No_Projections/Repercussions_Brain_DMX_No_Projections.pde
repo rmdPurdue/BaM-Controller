@@ -23,22 +23,12 @@ int[] dancer2Address = new int[4];
 int[] addressHigh = new int[4];
 int options,checksum;
 int frameID = 1;
-int destination[] = {0x00, 0x13, 0xA2, 0x00, 0x40, 0xF9, 0x79, 0x0C};
+int destination[] = {0x00, 0x13, 0xA2, 0x00, 0x40, 0xF9, 0x79, 0x0C}; //not needed
 int[] payload = new int[0];
 Serial xbee;
 
 /*****     Objects to store data for each dancer *****/
 Dancer dancer1, dancer2;
-
-boolean rotateDancer1, rotateDancer2, drawDancer1, drawDancer2, shiftDancer1, shiftDancer2,
-        scaleDancer1, scaleDancer2, lxDancer1, lxDancer2;
-String dancer1Type,dancer2Type;
-int dancer1r, dancer2r, dancer1g, dancer2g, dancer1b, dancer2b, dancer1x, dancer2x, dancer1y, dancer2y,
-    dancer1w, dancer2w, dancer1h, dancer2h, dancer1Scale, dancer2Scale, dancer1Shift, dancer2Shift,
-    dancer1WidthFactor, dancer2WidthFactor, dancer1HeightFactor, dancer2HeightFactor, dancer1Angle, dancer2Angle,
-    dancer1Intensity, dancer2Intensity, dancer1Pan, dancer2Pan, dancer1Tilt, dancer2Tilt,
-    dancer1Cyan, dancer2Cyan, dancer1Yellow, dancer2Yellow, dancer1Magenta, dancer2Magenta,
-    dancer1Gobo, dancer2Gobo;
 
 boolean fade = false;
 int fadeCount = 0;
@@ -67,7 +57,7 @@ void setup() {
   //fullScreen();
   background(0,0,0);
 
-/*****   Initialize Dancer objecys for storage  *****/
+/*****   Initialize Dancer objects for storage  *****/
   dancer1 = new Dancer();
   dancer2 = new Dancer();
 
@@ -84,10 +74,7 @@ void setup() {
     textSize(14);
     text("No serial ports connected.",20,380);
   }
-  xbee = new Serial(this, "COM4", 9600);
-
-  dmxOutput = new DmxP512(this,universeSize,false);
-  dmxOutput.setupDmxPro(DMXPRO_PORT,DMXPRO_BAUDRATE);
+  //xbee = new Serial(this, "COM4", 9600);
   
   dataFont = loadFont("DS-Digital-Bold-48.vlw");
   labelFont = loadFont("Arial-BoldMT-48.vlw");
@@ -95,10 +82,6 @@ void setup() {
 
 void draw() {
   try {
-  dmxOutput.set(27,5);
-  dmxOutput.set(1,73);
-  dmxOutput.set(101,73);
-  dmxOutput.set(127,5);
   drawData();
   if(fade && fadeCount < 75) {
     if(fadeCount == 50) {
@@ -110,51 +93,6 @@ void draw() {
     fadeCount++;
   } else {
     receive();      // Check for incoming XBee data and parse it
-    if(lxDancer1) {
-      dmxOutput.set(102, dancer1.getLevel(dancer1Intensity));
-      dmxOutput.set(125, dancer1.getLevel(dancer1Pan));
-      dmxOutput.set(126, dancer1.getLevel(dancer1Tilt));
-      dmxOutput.set(103, dancer1.getLevel(dancer1Cyan));
-      dmxOutput.set(104, dancer1.getLevel(dancer1Yellow));
-      dmxOutput.set(105, dancer1.getLevel(dancer1Magenta));
-      dmxOutput.set(107, dancer1.getLevel(dancer1Gobo));
-    }
-    if(lxDancer2) {
-      dmxOutput.set(2, dancer2.getLevel(dancer2Intensity));
-      dmxOutput.set(25, dancer2.getLevel(dancer2Pan));
-      dmxOutput.set(26, dancer2.getLevel(dancer2Tilt));
-      dmxOutput.set(3, dancer2.getLevel(dancer2Cyan));
-      dmxOutput.set(4, dancer2.getLevel(dancer2Yellow));
-      dmxOutput.set(5, dancer2.getLevel(dancer2Magenta));
-      dmxOutput.set(7, dancer2.getLevel(dancer2Gobo));
-    }
-/*
-
-    if(drawDancer1) {
-      drawShapes(dancer1Type, dancer1.getLevel(dancer1r), dancer1.getLevel(dancer1g), dancer1.getLevel(dancer1b), dancer1.getLevel(dancer1x), dancer1.getLevel(dancer1y), dancer1.getLevel(dancer1w), dancer1.getLevel(dancer1h));
-    }
-    if(drawDancer2) {
-      drawShapes(dancer2Type, dancer2.getLevel(dancer2r), dancer2.getLevel(dancer2g), dancer2.getLevel(dancer2g), dancer2.getLevel(dancer2x), dancer2.getLevel(dancer2y), dancer2.getLevel(dancer2w), dancer2.getLevel(dancer2h));
-    }
-    if(scaleDancer1) {
-      scaleShapes(dancer2Type, dancer2.getLevel(dancer2r), dancer2.getLevel(dancer2g), dancer2.getLevel(dancer2b), dancer1x, dancer1y, dancer1w, dancer1h, dancer2.getLevel(dancer2Scale)/10);
-    }
-    if(scaleDancer2) {
-      scaleShapes(dancer2Type, dancer2.getLevel(dancer2r), dancer2.getLevel(dancer2g), dancer2.getLevel(dancer2b), dancer2x, dancer2y, dancer2w, dancer2h, dancer2.getLevel(dancer2Scale)/10);
-    }
-    if(shiftDancer1) {
-      shiftShapes(dancer1Type, dancer1.getLevel(dancer1r), dancer1.getLevel(dancer1g), dancer1.getLevel(dancer1b), dancer1x, dancer1y, dancer1w, dancer1h, dancer1.getLevel(dancer1Shift), dancer1.getLevel(dancer1WidthFactor), dancer1.getLevel(dancer1HeightFactor));
-    }
-    if(shiftDancer2) {
-      shiftShapes(dancer2Type, dancer2.getLevel(dancer2r), dancer2.getLevel(dancer2g), dancer2.getLevel(dancer2b), dancer2x, dancer2y, dancer2w, dancer2h, dancer2.getLevel(dancer2Shift), dancer2.getLevel(dancer2WidthFactor), dancer2.getLevel(dancer2HeightFactor));
-    }
-    if(rotateDancer1) {
-      rotateShapes(dancer1Type, dancer1.getLevel(dancer1r), dancer1.getLevel(dancer1g), dancer1.getLevel(dancer1b), dancer1x, dancer1y, dancer1w, dancer1h, dancer1.getLevel(dancer1Angle));
-    }
-    if(rotateDancer2) {
-      rotateShapes(dancer2Type, dancer2.getLevel(dancer2r), dancer2.getLevel(dancer2g), dancer2.getLevel(dancer2b), dancer2x, dancer2y, dancer2w, dancer2h, dancer2.getLevel(dancer2Angle));
-    }
-*/
   delay(250);
   }
   println(millis());
@@ -165,7 +103,81 @@ void draw() {
     } catch (Exception el) {
     }
   }
+  printOSC();
 }
+
+void printOSC() {
+  /* create an osc bundle */
+  OscBundle myBundle = new OscBundle();
+  
+  ///* createa new osc message object */
+  //OscMessage myMessage = new OscMessage("/test");
+  //myMessage.add("abc");
+  
+  ///* add an osc message to the osc bundle */
+  //myBundle.add(myMessage);
+  
+  //println(myMessage);
+  
+  ///* reset and clear the myMessage object for refill. */
+  //myMessage.clear();
+  
+  ///* refill the osc message object again */
+  //myMessage.setAddrPattern("/test2");
+  //myMessage.add("defg");
+  
+  OscMessage myMessage = messageBuilder(3, 0);
+  myBundle.add(myMessage);
+  
+  println(myMessage);
+  
+  //myBundle.setTimetag(myBundle.now() + 10000);
+  /* send the osc bundle, containing 2 osc messages, to a remote location. */
+  //oscP5.send(myBundle, myRemoteLocation);
+}
+
+OscMessage messageBuilder(int location, int sensor) {
+  OscMessage output = new OscMessage("");
+  switch(location) {
+    case 0:
+      output.add("/back");
+      break;
+    case 1:
+      output.add("/l_arm");
+      break;
+    case 2:
+      output.add("/r_arm");
+      break;
+    case 3:
+      output.add("/l_ankle");
+      break;
+    case 4:
+      output.add("/r_ankle");
+      break;
+    default:
+      output.add("/unknown_location");
+      break;
+  }
+      
+    switch(sensor) {
+      case 0:
+        output.add("/gyro");
+        break;
+      case 1:
+        output.add("/accel");
+        break;
+      case 2:
+        output.add("/adc"); //change later, adc will have sub stream names
+        break;
+      default:
+        output.add("unknown_sensor");
+        break;     
+  }
+  println(output); //convert myMessage to string
+  return output;
+}
+
+
 
 void drawData() {
   stroke(0,0,0);
@@ -185,218 +197,6 @@ void drawData() {
       text(dancer2.getLevel(i),50+((24-i)*75),height-10);
       text(dancer1.getLevel(i),50+((24-i)*75),60);
     }
-  }
-}
-/*
-void drawShapes(String type, int r, int g, int b, int x, int y, int w, int h) {
-  fill(r,g,b,127);
-  stroke(r,g,b,127);
-  if(type.equals("ellipse")) {
-    ellipse(x+300,y+300,w,h);
-  } else if(type.equals("rect")) {
-    rect(x+300,y+300,w,h);
-  } else {
-    ellipse(x,y,w,h);
-  }
-}
-
-void scaleShapes(String type, int r, int g, int b, int x, int y, int w, int h, float i) {
-  pushMatrix();
-  scale(i/5);
-  fill(r,g,b,127);
-  stroke(r,g,b,127);
-  if(type.equals("ellipse")) {
-    translate(x/(i/5),y/(i/5));
-    ellipse(0,0,w,h);
-  } else if(type.equals("rect")) {
-    translate(x/(i/5),y/(i/5));
-    rect(0,0,w,h);
-  } else {
-    ellipse(0,0,w,h);
-  }
-  popMatrix();
-}
-
-void shiftShapes(String type, int r, int g, int b, int x, int y, int w, int h, float i, float j, float k) {
-  fill(r,g,b,127);
-  stroke(r,g,b,127);
-  pushMatrix();
-  translate(i*j/100,i*k/100);
-  if(type.equals("ellipse")) {
-    ellipse(x,y,w,h);
-  } else if(type.equals("rect")) {
-    rect(x*2,y*2,w,h);
-  } else {
-    ellipse(x*2,y*2,w,h);
-  }
-  popMatrix();
-}
-
-void rotateShapes(String type, int r, int g, int b, int x, int y, int w, int h, float i) {
-  println(type);
-  pushMatrix();
-  translate(x*2,y*2);
-  rotate(i/15);
-  fill(r,g,b,127);
-  stroke(r,g,b,127);
-  if(type.equals("ellipse")) {
-    ellipse(x/4,y/4,w,h);
-  } else if(type.equals("rect")) {
-    rect((x/2)-w,(y/2)-h,w,h);
-  } else {
-    ellipse(x/4,y/4,w,h);
-  }
-  popMatrix();
-}
-*/
-void oscEvent(OscMessage theOscMessage) {
-  println("Got OSC Message.");
-  println("### received an OSC message.");
-  println("Address Pattern: "+theOscMessage.addrPattern());
-  println("Typetag: "+theOscMessage.typetag());
-  println("Timetag: "+theOscMessage.timetag());
-  /*
-  if(theOscMessage.checkAddrPattern("/draw") == true) {
-    if(theOscMessage.checkTypetag("isiiiiiii")) {
-      if(theOscMessage.get(0).intValue() == 1) {
-        drawDancer1 = true;
-        dancer1Type = theOscMessage.get(1).stringValue();
-        dancer1r = theOscMessage.get(2).intValue();
-        dancer1g = theOscMessage.get(3).intValue();
-        dancer1b = theOscMessage.get(4).intValue();
-        dancer1x = theOscMessage.get(5).intValue();
-        dancer1y = theOscMessage.get(6).intValue();
-        dancer1w = theOscMessage.get(7).intValue();
-        dancer1h = theOscMessage.get(8).intValue();
-      } else if(theOscMessage.get(0).intValue() == 2) {
-        drawDancer2 = true;
-        dancer2Type = theOscMessage.get(1).stringValue();
-        dancer2r = theOscMessage.get(2).intValue();
-        dancer2g = theOscMessage.get(3).intValue();
-        dancer2b = theOscMessage.get(4).intValue();
-        dancer2x = theOscMessage.get(5).intValue();
-        dancer2y = theOscMessage.get(6).intValue();
-        dancer2w = theOscMessage.get(7).intValue();
-        dancer2h = theOscMessage.get(8).intValue();
-      }
-    }
-  } else if(theOscMessage.checkAddrPattern("/shift") == true) {
-    if(theOscMessage.checkTypetag("isiiiiiiiiii")) {
-      if(theOscMessage.get(0).intValue() == 1) {
-        shiftDancer1 = true;
-        dancer1Type = theOscMessage.get(1).stringValue();
-        dancer1r = theOscMessage.get(2).intValue();
-        dancer1g = theOscMessage.get(3).intValue();
-        dancer1b = theOscMessage.get(4).intValue();
-        dancer1x = theOscMessage.get(5).intValue();
-        dancer1y = theOscMessage.get(6).intValue();
-        dancer1w = theOscMessage.get(7).intValue();
-        dancer1h = theOscMessage.get(8).intValue();
-        dancer1Shift = theOscMessage.get(9).intValue();
-        dancer1WidthFactor = theOscMessage.get(10).intValue();
-        dancer1HeightFactor = theOscMessage.get(11).intValue();
-      } else if(theOscMessage.get(0).intValue() == 2) {
-        shiftDancer2 = true;
-        dancer2Type = theOscMessage.get(1).stringValue();
-        dancer2r = theOscMessage.get(2).intValue();
-        dancer2g = theOscMessage.get(3).intValue();
-        dancer2b = theOscMessage.get(4).intValue();
-        dancer2x = theOscMessage.get(5).intValue();
-        dancer2y = theOscMessage.get(6).intValue();
-        dancer2w = theOscMessage.get(7).intValue();
-        dancer2h = theOscMessage.get(8).intValue();
-        dancer2Shift = theOscMessage.get(9).intValue();
-        dancer2WidthFactor = theOscMessage.get(10).intValue();
-        dancer2HeightFactor = theOscMessage.get(11).intValue();
-      }
-    }
-  } else if(theOscMessage.checkAddrPattern("/scale") == true) {
-    if(theOscMessage.checkTypetag("isiiiiiiii")) {
-      if(theOscMessage.get(0).intValue() == 1) {
-        scaleDancer1 = true;
-        dancer1Type = theOscMessage.get(1).stringValue();
-        dancer1r = theOscMessage.get(2).intValue();
-        dancer1g = theOscMessage.get(3).intValue();
-        dancer1b = theOscMessage.get(4).intValue();
-        dancer1x = theOscMessage.get(5).intValue();
-        dancer1y = theOscMessage.get(6).intValue();
-        dancer1w = theOscMessage.get(7).intValue();
-        dancer1h = theOscMessage.get(8).intValue();
-        dancer1Scale = theOscMessage.get(9).intValue();
-      } else if(theOscMessage.get(0).intValue() == 2) {
-        scaleDancer2 = true;
-        dancer2Type = theOscMessage.get(1).stringValue();
-        dancer2r = theOscMessage.get(2).intValue();
-        dancer2g = theOscMessage.get(3).intValue();
-        dancer2b = theOscMessage.get(4).intValue();
-        dancer2x = theOscMessage.get(5).intValue();
-        dancer2y = theOscMessage.get(6).intValue();
-        dancer2w = theOscMessage.get(7).intValue();
-        dancer2h = theOscMessage.get(8).intValue();
-        dancer2Scale = theOscMessage.get(9).intValue();
-      }
-    }
-  } else if(theOscMessage.checkAddrPattern("/rotate") == true) {
-    if(theOscMessage.checkTypetag("isiiiiiiii")) {
-      if(theOscMessage.get(0).intValue() == 1) {
-        rotateDancer1 = true;
-        dancer1Type = theOscMessage.get(1).stringValue();
-        dancer1r = theOscMessage.get(2).intValue();
-        dancer1g = theOscMessage.get(3).intValue();
-        dancer1b = theOscMessage.get(4).intValue();
-        dancer1x = theOscMessage.get(5).intValue();
-        dancer1y = theOscMessage.get(6).intValue();
-        dancer1w = theOscMessage.get(7).intValue();
-        dancer1h = theOscMessage.get(8).intValue();
-        dancer1Angle = theOscMessage.get(9).intValue();
-      } else if(theOscMessage.get(0).intValue() == 2) {
-        rotateDancer2 = true;
-        dancer2Type = theOscMessage.get(1).stringValue();
-        dancer2r = theOscMessage.get(2).intValue();
-        dancer2g = theOscMessage.get(3).intValue();
-        dancer2b = theOscMessage.get(4).intValue();
-        dancer2x = theOscMessage.get(5).intValue();
-        dancer2y = theOscMessage.get(6).intValue();
-        dancer2w = theOscMessage.get(7).intValue();
-        dancer2h = theOscMessage.get(8).intValue();
-        dancer2Angle = theOscMessage.get(9).intValue();
-      }
-    }
-  } else if(theOscMessage.checkAddrPattern("/fade") == true) {
-    fade = true;
-    fadeCount = 0;
-    rotateDancer1 = false;
-    rotateDancer2 = false;
-    drawDancer1 = false;
-    drawDancer2 = false;
-    shiftDancer1 = false;
-    shiftDancer2 = false;
-    scaleDancer1 = false;
-    scaleDancer2 = false;
-  } else */
-  if(theOscMessage.checkAddrPattern("/lights") == true) {
-    if(theOscMessage.checkTypetag("iiiiiiii")) {
-      println("Lights message");
-      if(theOscMessage.get(0).intValue() == 1) {
-        lxDancer1 = true;
-        dancer1Intensity = theOscMessage.get(1).intValue();
-        dancer1Pan = theOscMessage.get(2).intValue();
-        dancer1Tilt = theOscMessage.get(3).intValue();
-        dancer1Cyan = theOscMessage.get(4).intValue();
-        dancer1Yellow = theOscMessage.get(5).intValue();
-        dancer1Magenta = theOscMessage.get(6).intValue();
-        dancer1Gobo = theOscMessage.get(7).intValue();
-      } else if(theOscMessage.get(0).intValue() == 2) {
-        lxDancer2 = true;
-        dancer2Intensity = theOscMessage.get(1).intValue();
-        dancer2Pan = theOscMessage.get(2).intValue();
-        dancer2Tilt = theOscMessage.get(3).intValue();
-        dancer2Cyan = theOscMessage.get(4).intValue();
-        dancer2Yellow = theOscMessage.get(5).intValue();
-        dancer2Magenta = theOscMessage.get(6).intValue();
-        dancer2Gobo = theOscMessage.get(7).intValue();
-      }
-    } 
   }
 }
 
