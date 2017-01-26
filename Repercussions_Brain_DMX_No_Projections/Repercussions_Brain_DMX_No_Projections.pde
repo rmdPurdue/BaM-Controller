@@ -106,6 +106,14 @@ void draw() {
   printOSC();
 }
 
+void oscEvent(OscMessage theOscMessage) {
+  println("Got OSC Message.");
+  println("### received an OSC message.");
+  println("Address Pattern: "+theOscMessage.addrPattern());
+  println("Typetag: "+theOscMessage.typetag());
+  println("Timetag: "+theOscMessage.timetag());
+}
+
 void printOSC() {
   /* create an osc bundle */
   OscBundle myBundle = new OscBundle();
@@ -126,54 +134,89 @@ void printOSC() {
   //myMessage.setAddrPattern("/test2");
   //myMessage.add("defg");
   
-  OscMessage myMessage = messageBuilder(3, 0);
-  myBundle.add(myMessage);
+  for(int i = 1; i <= 7; i++) {
+    OscMessage myMessage = messageBuilder(i, 3, 0);
+    myMessage.add("24");
+    myBundle.add(myMessage);
+    oscEvent(myMessage);
+  }
   
-  println(myMessage);
+  //println(myMessage);
   
   //myBundle.setTimetag(myBundle.now() + 10000);
   /* send the osc bundle, containing 2 osc messages, to a remote location. */
   //oscP5.send(myBundle, myRemoteLocation);
 }
 
-OscMessage messageBuilder(int location, int sensor) {
-  OscMessage output = new OscMessage("");
-  switch(location) {
-    case 0:
-      output.add("/back");
-      break;
+OscMessage messageBuilder(int dancer, int location, int sensor) {
+  String[] addressComponents = new String[3]; 
+  
+  switch(dancer) {
     case 1:
-      output.add("/l_arm");
+      addressComponents[0] = "/dancer1";
       break;
     case 2:
-      output.add("/r_arm");
+      addressComponents[0] = "/dancer2";
       break;
     case 3:
-      output.add("/l_ankle");
+      addressComponents[0] = "/dancer3";
       break;
     case 4:
-      output.add("/r_ankle");
+      addressComponents[0] = "/dancer4";
+      break;
+    case 5:
+      addressComponents[0] = "/dancer5";
+      break;
+    case 6:
+      addressComponents[0] = "/dancer6";
+      break;
+    case 7:
+      addressComponents[0] = "/dancer7";
       break;
     default:
-      output.add("/unknown_location");
+      addressComponents[0] = "/unknown_dancer";
+      break;
+  }
+  
+  switch(location) {
+    case 0:
+      addressComponents[1] = "back";
+      break;
+    case 1:
+      addressComponents[1] = "l_arm";
+      break;
+    case 2:
+      addressComponents[1] = "r_arm";
+      break;
+    case 3:
+      addressComponents[1] = "l_ankle";
+      break;
+    case 4:
+      addressComponents[1] = "r_ankle";
+      break;
+    default:
+      addressComponents[1] = "unknown_location";
       break;
   }
       
     switch(sensor) {
       case 0:
-        output.add("/gyro");
+        addressComponents[2] = "gyro";
         break;
       case 1:
-        output.add("/accel");
+        addressComponents[2] = "accel";
         break;
       case 2:
-        output.add("/adc"); //change later, adc will have sub stream names
+        addressComponents[2] = "adc"; //change later, adc will have sub stream names
         break;
       default:
-        output.add("unknown_sensor");
+        addressComponents[2] = "unknown_sensor";
         break;     
   }
-  println(output); //convert myMessage to string
+  //println(output); //convert myMessage to string
+  
+  String address = join(addressComponents, "/");
+  OscMessage output = new OscMessage(address);
   return output;
 }
 
