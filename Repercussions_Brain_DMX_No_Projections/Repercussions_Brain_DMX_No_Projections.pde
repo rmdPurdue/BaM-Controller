@@ -3,6 +3,7 @@ import processing.serial.*;
 import oscP5.*;
 import netP5.*;
 import dmxP512.*;
+import controlP5.*;
 
 DmxP512 dmxOutput;
 int universeSize = 128;
@@ -10,9 +11,10 @@ boolean DMXPRO = true;
 String DMXPRO_PORT = "COM22";
 int DMXPRO_BAUDRATE = 115000;
 
-/*****     Objects for OSC, UDP connections      *****/
+/*****     Objects for OSC, UDP, CP5 connections    *****/
 OscP5 oscP5;
 NetAddress myRemoteLocation;
+ControlP5 cp5;
 
 /*****     Objects for XBee Communication        *****/
 int apiIdentifier,localAddress,packetLength;
@@ -34,6 +36,9 @@ boolean fade = false;
 int fadeCount = 0;
 
 PFont dataFont, labelFont;
+
+/*****   Initialize boolean for dancer MAC Address storage  *****/
+  boolean enteredMacAddresses; 
 
 void setup() {
   frameRate(30);
@@ -60,10 +65,16 @@ void setup() {
 /*****   Initialize Dancer objects for storage  *****/
   dancer1 = new Dancer();
   dancer2 = new Dancer();
+  
+/*****   Initialize boolean for dancer MAC Address storage  *****/
+  enteredMacAddresses = false; 
 
 /*****   Initialize OSC and network objects     *****/
   oscP5 = new OscP5(this, 8000);
   myRemoteLocation = new NetAddress("127.0.0.1", 8000);
+  
+/*****  Set up ControlP5 object   *****/
+  cp5 = new ControlP5(this);
 
 /*****   Set up serial ports for XBee           *****/
   String ports[] = Serial.list();
@@ -81,6 +92,16 @@ void setup() {
 }
 
 void draw() {
+  if(!enteredMacAddresses) {
+    //enter in mac addresses
+    String d1addrString = drawMacAddress();
+    println("recieved mac address in loop" + d1addrString);
+    
+    //conversion will look something like this
+    dancer1.setMacAddress(hex2long(d1addrString));
+    enteredMacAddresses = true;
+  }
+  
   try {
   drawData();
   if(fade && fadeCount < 75) {
@@ -114,6 +135,40 @@ void oscEvent(OscMessage theOscMessage) {
   println("Timetag: "+theOscMessage.timetag());
 }
 
+String drawMacAddress() {
+  stroke(0,0,0);
+  fill(0,0,0);
+  rect(0, 0, width, height);
+  
+  cp5.addTextfield("MAC_Address")
+    .setPosition(20,100)
+    .setSize(200,40)
+    .setFont(labelFont)
+    .setFocus(true)
+    .setColor(color(255,0,0))
+    ;
+  
+  text(cp5.get(Textfield.class,"MAC_Address").getText(), 360,130);
+  return cp5.get(Textfield.class,"MAC_Address").getText();
+}
+
+void MAC_Address(String theText) {
+  // automatically receives results from controller input
+  println("a textfield event for controller 'input' : "+theText);
+}
+
+long hex2long(String s) {
+  String digits = "0123456789ABCDEF";
+  s = s.toUpperCase();
+  long val = 0;
+  for (int i = 0; i < s.length(); i++) {
+     char c = s.charAt(i);
+     long d = digits.indexOf(c);
+     val = 16*val + d;
+   }
+   return val;
+}
+
 void printOSC() {
   /* create an osc bundle */
   OscBundle myBundle = new OscBundle();
@@ -134,12 +189,13 @@ void printOSC() {
   //myMessage.setAddrPattern("/test2");
   //myMessage.add("defg");
   
-  for(int i = 1; i <= 7; i++) {
+  //for(int i = 1; i <= 2; i++) {
+    int i = 2;
     OscMessage myMessage = messageBuilder(i, 3, 0);
     myMessage.add("24");
     myBundle.add(myMessage);
     oscEvent(myMessage);
-  }
+  //}
   
   //println(myMessage);
   
@@ -158,21 +214,21 @@ OscMessage messageBuilder(int dancer, int location, int sensor) {
     case 2:
       addressComponents[0] = "/dancer2";
       break;
-    case 3:
-      addressComponents[0] = "/dancer3";
-      break;
-    case 4:
-      addressComponents[0] = "/dancer4";
-      break;
-    case 5:
-      addressComponents[0] = "/dancer5";
-      break;
-    case 6:
-      addressComponents[0] = "/dancer6";
-      break;
-    case 7:
-      addressComponents[0] = "/dancer7";
-      break;
+    //case 3:
+    //  addressComponents[0] = "/dancer3";
+    //  break;
+    //case 4:
+    //  addressComponents[0] = "/dancer4";
+    //  break;
+    //case 5:
+    //  addressComponents[0] = "/dancer5";
+    //  break;
+    //case 6:
+    //  addressComponents[0] = "/dancer6";
+    //  break;
+    //case 7:
+    //  addressComponents[0] = "/dancer7";
+    //  break;
     default:
       addressComponents[0] = "/unknown_dancer";
       break;
@@ -220,13 +276,12 @@ OscMessage messageBuilder(int dancer, int location, int sensor) {
   return output;
 }
 
-
-
 void drawData() {
   stroke(0,0,0);
   fill(0,0,0);
-  rect(0,0,width,60);
-  rect(0,height-60,width,60);
+  //rect(0,0,width,60);
+  //rect(0,height-60,width,60);
+  rect(0, 0, width, height);
   textFont(dataFont);
   textAlign(CENTER);
   textSize(36);
@@ -387,11 +442,14 @@ class Dancer {
   boolean state[] = new boolean[26];
   int address[] = new int[26];
   int level[] = new int[26];
+  long macAddress;
+  String addressString;
   
   Dancer() {
     for(int i = 0; i < 26; i++) {
       state[i] = false;
       address[i] = 0;
+      macAddress = 0;
       level[i] = 0;
     }
     level[20] = 0;
@@ -410,6 +468,10 @@ class Dancer {
     address[index] = value;
   }
   
+  void setMacAddress(long value) {
+    macAddress = value;
+  }
+  
   void setLevel(int index, int value) {
     level[index] = value;
   }
@@ -420,6 +482,10 @@ class Dancer {
   
   int getAddress(int index) {
     return address[index];
+  }
+  
+  long getMacAddress() {
+    return macAddress;
   }
   
   int getLevel(int index) {
