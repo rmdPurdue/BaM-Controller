@@ -31,6 +31,7 @@ Serial xbee;
 
 /*****     Objects to store data for each dancer *****/
 Dancer dancer1, dancer2;
+String d1StrAddr;
 
 boolean fade = false;
 int fadeCount = 0;
@@ -38,7 +39,7 @@ int fadeCount = 0;
 PFont dataFont, labelFont;
 
 /*****   Initialize boolean for dancer MAC Address storage  *****/
-  boolean enteredMacAddresses; 
+  boolean enteredMacAddresses, recMacAddresses; 
 
 void setup() {
   frameRate(30);
@@ -67,7 +68,8 @@ void setup() {
   dancer2 = new Dancer();
   
 /*****   Initialize boolean for dancer MAC Address storage  *****/
-  enteredMacAddresses = false; 
+  enteredMacAddresses = false;
+  recMacAddresses = false;
 
 /*****   Initialize OSC and network objects     *****/
   oscP5 = new OscP5(this, 8000);
@@ -94,11 +96,19 @@ void setup() {
 void draw() {
   if(!enteredMacAddresses) {
     //enter in mac addresses
-    String d1addrString = drawMacAddress();
-    println("recieved mac address in loop" + d1addrString);
+    drawMacAddress();
+    //String d1addrString = drawMacAddress();
+    //println("recieved mac address in loop" + d1addrString);
     
-    //conversion will look something like this
-    dancer1.setMacAddress(hex2long(d1addrString));
+    //if(recMacAddresses) {
+      //for testing
+      println("global var address string in loop: " + d1StrAddr);
+      
+      println("recieved mac address in loop" + dancer1.getStringAddr());
+      
+      //conversion will look something like this
+      //dancer1.setMacAddress(hex2long(dancer1.getStringAddr()));
+    //}
     enteredMacAddresses = true;
   }
   
@@ -135,24 +145,50 @@ void oscEvent(OscMessage theOscMessage) {
   println("Timetag: "+theOscMessage.timetag());
 }
 
-String drawMacAddress() {
+/* 
+  Adding in functionality for multiple dancers: 
+  Given # of dancers, have the fields appear (or not appear)
+  based on if that dancer # is valid. Use this link
+  https://forum.processing.org/two/discussion/1576/controlp5-basic-example-text-input-field
+  to create different fields per dancer.
+*/
+
+//String drawMacAddress() {
+void drawMacAddress() {  
   stroke(0,0,0);
   fill(0,0,0);
   rect(0, 0, width, height);
   
-  cp5.addTextfield("MAC_Address")
+  cp5.addTextfield("MAC_Address_1")
     .setPosition(20,100)
     .setSize(200,40)
-    .setFont(labelFont)
+    //.setFont(labelFont)
     .setFocus(true)
     .setColor(color(255,0,0))
     ;
   
-  text(cp5.get(Textfield.class,"MAC_Address").getText(), 360,130);
-  return cp5.get(Textfield.class,"MAC_Address").getText();
+  cp5.addBang("Submit")
+    .setPosition(240, 100)
+    .setSize(80, 40)
+    .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
+    ;
+  //text(cp5.get(Textfield.class,"MAC_Address").getText(), 360,130);
+  //return cp5.get(Textfield.class,"MAC_Address").getText();
 }
 
-void MAC_Address(String theText) {
+void Submit() {
+  //try 2
+  d1StrAddr = cp5.get(Textfield.class,"MAC_Address_1").getText();
+  
+  //ideal
+  dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
+  recMacAddresses = true;
+  
+  //repeat the following line for the different fields
+  //dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
+}
+
+void MAC_Address_1(String theText) {
   // automatically receives results from controller input
   println("a textfield event for controller 'input' : "+theText);
 }
@@ -192,7 +228,7 @@ void printOSC() {
   //for(int i = 1; i <= 2; i++) {
     int i = 2;
     OscMessage myMessage = messageBuilder(i, 3, 0);
-    myMessage.add("24");
+    myMessage.add("hello");
     myBundle.add(myMessage);
     oscEvent(myMessage);
   //}
@@ -490,6 +526,14 @@ class Dancer {
   
   int getLevel(int index) {
     return level[index];
+  }
+  
+  void setStringAddr(String addr) {
+    addressString = addr;
+  }
+  
+  String getStringAddr() {
+    return addressString;
   }
 }
   
