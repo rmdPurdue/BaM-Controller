@@ -94,24 +94,6 @@ void setup() {
 }
 
 void draw() {
-  if(!enteredMacAddresses) {
-    //enter in mac addresses
-    drawMacAddress();
-    //String d1addrString = drawMacAddress();
-    //println("recieved mac address in loop" + d1addrString);
-    
-    //if(recMacAddresses) {
-      //for testing
-      println("global var address string in loop: " + d1StrAddr);
-      
-      println("recieved mac address in loop" + dancer1.getStringAddr());
-      
-      //conversion will look something like this
-      //dancer1.setMacAddress(hex2long(dancer1.getStringAddr()));
-    //}
-    enteredMacAddresses = true;
-  }
-  
   try {
   drawData();
   if(fade && fadeCount < 75) {
@@ -143,72 +125,6 @@ void oscEvent(OscMessage theOscMessage) {
   println("Address Pattern: "+theOscMessage.addrPattern());
   println("Typetag: "+theOscMessage.typetag());
   println("Timetag: "+theOscMessage.timetag());
-}
-
-/* 
-  Adding in functionality for multiple dancers: 
-  Given # of dancers, have the fields appear (or not appear)
-  based on if that dancer # is valid. Use this link
-  https://forum.processing.org/two/discussion/1576/controlp5-basic-example-text-input-field
-  to create different fields per dancer.
-*/
-
-//String drawMacAddress() {
-void drawMacAddress() {  // maybe this never exits
-  stroke(0,0,0);
-  fill(0,0,0);
-  rect(0, 0, width, height);
-  
-  cp5.addTextfield("MAC_Address_1")
-    .setPosition(20,100)
-    .setSize(200,40)
-    //.setFont(labelFont)
-    .setFocus(true)
-    .setColor(color(255,0,0))
-    ;
-  
-  //cp5.addBang("Submit")
-  //  .setPosition(240, 100)
-  //  .setSize(80, 40)
-  //  .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
-  //  ;
-  //text(cp5.get(Textfield.class,"MAC_Address").getText(), 360,130);
-  //return cp5.get(Textfield.class,"MAC_Address").getText();
-}
-
-//void keyPressed() {
-//  if (key==RETURN || key==ENTER) {
-//    //try 2
-//    d1StrAddr = cp5.get(Textfield.class,"MAC_Address_1").getText();
-    
-//    //ideal
-//    dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
-//    recMacAddresses = true;
-//  }
-//}  
-
-//void Submit() {
-//  //try 2
-//  d1StrAddr = cp5.get(Textfield.class,"MAC_Address_1").getText();
-  
-//  //ideal
-//  dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
-//  recMacAddresses = true;
-  
-//  //repeat the following line for the different fields
-//  //dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
-//}
-
-void MAC_Address_1(String theText) {
-  // automatically receives results from controller input
-  println("a textfield event for controller 'input' : "+theText);
-  
-  //try 2
-  d1StrAddr = cp5.get(Textfield.class,"MAC_Address_1").getText();
-    
-  //ideal
-  dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
-  recMacAddresses = true;
 }
 
 long hex2long(String s) {
