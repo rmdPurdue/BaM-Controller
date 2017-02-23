@@ -154,7 +154,7 @@ void oscEvent(OscMessage theOscMessage) {
 */
 
 //String drawMacAddress() {
-void drawMacAddress() {  
+void drawMacAddress() {  // maybe this never exits
   stroke(0,0,0);
   fill(0,0,0);
   rect(0, 0, width, height);
@@ -167,30 +167,48 @@ void drawMacAddress() {
     .setColor(color(255,0,0))
     ;
   
-  cp5.addBang("Submit")
-    .setPosition(240, 100)
-    .setSize(80, 40)
-    .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
-    ;
+  //cp5.addBang("Submit")
+  //  .setPosition(240, 100)
+  //  .setSize(80, 40)
+  //  .getCaptionLabel().align(ControlP5.CENTER, ControlP5.CENTER)
+  //  ;
   //text(cp5.get(Textfield.class,"MAC_Address").getText(), 360,130);
   //return cp5.get(Textfield.class,"MAC_Address").getText();
 }
 
-void Submit() {
-  //try 2
-  d1StrAddr = cp5.get(Textfield.class,"MAC_Address_1").getText();
+//void keyPressed() {
+//  if (key==RETURN || key==ENTER) {
+//    //try 2
+//    d1StrAddr = cp5.get(Textfield.class,"MAC_Address_1").getText();
+    
+//    //ideal
+//    dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
+//    recMacAddresses = true;
+//  }
+//}  
+
+//void Submit() {
+//  //try 2
+//  d1StrAddr = cp5.get(Textfield.class,"MAC_Address_1").getText();
   
-  //ideal
-  dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
-  recMacAddresses = true;
+//  //ideal
+//  dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
+//  recMacAddresses = true;
   
-  //repeat the following line for the different fields
-  //dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
-}
+//  //repeat the following line for the different fields
+//  //dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
+//}
 
 void MAC_Address_1(String theText) {
   // automatically receives results from controller input
   println("a textfield event for controller 'input' : "+theText);
+  
+  //try 2
+  d1StrAddr = cp5.get(Textfield.class,"MAC_Address_1").getText();
+    
+  //ideal
+  dancer1.setStringAddr(cp5.get(Textfield.class,"MAC_Address_1").getText());
+  recMacAddresses = true;
 }
 
 long hex2long(String s) {
