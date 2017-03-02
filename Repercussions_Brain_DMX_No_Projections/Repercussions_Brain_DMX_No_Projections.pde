@@ -18,7 +18,9 @@ ControlP5 cp5;
 
 /*****     Objects for XBee Communication        *****/
 int apiIdentifier,localAddress,packetLength;
-int[] address = new int[8];
+//int[] address = new int[8];
+String[] addrString = new String[8];
+long address;
 int[] dataIn = new int[100];
 int[] dancer1Address = new int[4];
 int[] dancer2Address = new int[4];
@@ -171,14 +173,17 @@ void printOSC() {
   ///* refill the osc message object again */
   //myMessage.setAddrPattern("/test2");
   //myMessage.add("defg");
-  
-  //for(int i = 1; i <= 2; i++) {
-    int i = 2;
-    OscMessage myMessage = messageBuilder(i, 3, 0);
-    myMessage.add("hello");
-    myBundle.add(myMessage);
-    oscEvent(myMessage);
-  //}
+
+  int i = 0;
+  if((address - dancer1.getMacAddress()) == 0) {
+      i = 1;
+  } else if((address - dancer2.getMacAddress()) == 0) {
+    i = 2;
+  }
+  OscMessage myMessage = messageBuilder(i, 3, 0);
+  myMessage.add("hello");
+  myBundle.add(myMessage);
+  oscEvent(myMessage);
   
   //println(myMessage);
   
@@ -353,20 +358,23 @@ int getLocalAddress(int timeout) {
   return 0;
 }
 
-int[] getLongAddress(int timeout) {
+long getLongAddress(int timeout) {
   long startTime = millis();
   int addrByte = 'Z';
   while(xbee.available() < 8 && ((millis() - startTime) < timeout));
   if(xbee.available() > 0) {
     for(int i = 0; i < 8; i++) {
       addrByte = escapedByte();
-      if(address != null) {
-        address[i] = addrByte;
+      if(addrString != null) {
+        //address[i] = addrByte;
+        addrString[i] = hex(addrByte);
       }
     }
-    return address;
+    //return address;
+    String addressString = join(addrString, "");
+    address = hex2long(addressString);
   }
-  return null;
+  return 0;
 }
 
 int[] getInfo(int packetLength, int timeout) {
@@ -406,14 +414,16 @@ int escapedByte() {
 }
 
 void write() {
-  if(dataIn != null && address != null) {
-  if(address[4] == dancer1Address[0] && address[5] == dancer1Address[1] &&
-     address[6] == dancer1Address[2] && address[7] == dancer1Address[3]) {
+  if(dataIn != null && addrString != null) {
+  //if(address[4] == dancer1Address[0] && address[5] == dancer1Address[1] &&
+  //   address[6] == dancer1Address[2] && address[7] == dancer1Address[3]) {
+  if((address - dancer1.getMacAddress()) == 0) {
     for(int i = 0; i < 19; i++) {
       dancer1.setLevel(i, dataIn[i]);
     }
-  } else if(address[4] == dancer2Address[0] && address[5] == dancer2Address[1] &&
-            address[6] == dancer2Address[2] && address[7] == dancer2Address[3]) {
+  //} else if(address[4] == dancer2Address[0] && address[5] == dancer2Address[1] &&
+  //          address[6] == dancer2Address[2] && address[7] == dancer2Address[3]) {
+  } else if((address - dancer2.getMacAddress()) == 0) {
     for(int i = 0; i < 19; i++) {
       dancer2.setLevel(i, dataIn[i]);
     }
