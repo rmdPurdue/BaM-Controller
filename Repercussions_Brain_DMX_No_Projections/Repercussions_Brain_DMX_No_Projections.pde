@@ -99,11 +99,14 @@ void setup() {
   json = loadJSONObject("data.json");
   
   String MA1 = json.getString("MAC_ADDR_1");
+  String MA2 = json.getString("MAC_ADDR_2");
   dancer1.setMacAddress(hex2long(MA1));  
+  dancer2.setMacAddress(hex2long(MA2));
 }
 
 void draw() {
-  println(dancer1.getMacAddress());
+  println("dancer 1's mac address as a long int is " + dancer1.getMacAddress());
+  println("dancer 2's mac address as a long int is " + dancer2.getMacAddress());
   try {
   drawData();
   if(fade && fadeCount < 75) {
