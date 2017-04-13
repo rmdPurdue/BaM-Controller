@@ -8,8 +8,8 @@ import controlP5.*;
 DmxP512 dmxOutput;
 int universeSize = 128;
 boolean DMXPRO = true;
-String DMXPRO_PORT = "COM22";
-int DMXPRO_BAUDRATE = 115000;
+//String DMXPRO_PORT = "COM22";
+//int DMXPRO_BAUDRATE = 115000;
 
 /*****     Objects for OSC, UDP, CP5 connections    *****/
 OscP5 oscP5;
@@ -18,9 +18,10 @@ ControlP5 cp5;
 
 /*****     Objects for XBee Communication        *****/
 int apiIdentifier,localAddress,packetLength;
-//int[] address = new int[8];
+int[] address = new int[8];
 String[] addrString = new String[8];
-long address;
+long longAddress;
+int longAddrRet;
 int[] dataIn = new int[100];
 int[] dancer1Address = new int[4];
 int[] dancer2Address = new int[4];
@@ -33,7 +34,8 @@ Serial xbee;
 
 /*****     Objects to store data for each dancer *****/
 Dancer dancer1, dancer2;
-String d1StrAddr;
+String MA1, MA2; //used for the MAC Addresses from the JSON file
+String addressString; //used in getLongAddr to store the MAC Address from the incoming signal
 
 /* JSON Object */
 JSONObject json;
@@ -92,7 +94,7 @@ void setup() {
     textSize(14);
     text("No serial ports connected.",20,380);
   }
-  //xbee = new Serial(this, "COM4", 9600);
+  xbee = new Serial(this, "/dev/cu.usbserial-DA01L4GJ", 9600);
   
   dataFont = loadFont("DS-Digital-Bold-48.vlw");
   labelFont = loadFont("Arial-BoldMT-48.vlw");
@@ -100,15 +102,16 @@ void setup() {
   /* JSON Stuff */
   json = loadJSONObject("data.json");
   
-  String MA1 = json.getString("MAC_ADDR_1");
-  String MA2 = json.getString("MAC_ADDR_2");
+  MA1 = json.getString("MAC_ADDR_1");
+  MA2 = json.getString("MAC_ADDR_2");
   dancer1.setMacAddress(hex2long(MA1));  
   dancer2.setMacAddress(hex2long(MA2));
 }
 
 void draw() {
+  println("dancer 1's mac address is " + MA1);
   println("dancer 1's mac address as a long int is " + dancer1.getMacAddress());
-  println("dancer 2's mac address as a long int is " + dancer2.getMacAddress());
+  //println("dancer 2's mac address as a long int is " + dancer2.getMacAddress());
   try {
   drawData();
   if(fade && fadeCount < 75) {
@@ -175,9 +178,12 @@ void printOSC() {
   //myMessage.add("defg");
 
   int i = 0;
-  if((address - dancer1.getMacAddress()) == 0) {
+  println("longAddress value: " + longAddress);
+  println("dancer1 MACaddress: " + dancer1.getMacAddress());
+  println("result of subtraction: " + (longAddress - dancer1.getMacAddress()));
+  if((longAddress - dancer1.getMacAddress()) == 0) {
       i = 1;
-  } else if((address - dancer2.getMacAddress()) == 0) {
+  } else if((longAddress - dancer2.getMacAddress()) == 0) {
     i = 2;
   }
   OscMessage myMessage = messageBuilder(i, 3, 0);
@@ -259,8 +265,8 @@ OscMessage messageBuilder(int dancer, int location, int sensor) {
   }
   //println(output); //convert myMessage to string
   
-  String address = join(addressComponents, "/");
-  OscMessage output = new OscMessage(address);
+  String oscOutput = join(addressComponents, "/");
+  OscMessage output = new OscMessage(oscOutput);
   return output;
 }
 
@@ -293,7 +299,7 @@ void receive() {
   if(packetLength > 0) {
     println("Got XBee message.");
     apiIdentifier = getIdentifier(timeout);
-    address = getLongAddress(timeout);
+    longAddrRet = getLongAddress(timeout);
     localAddress = getLocalAddress(timeout);
     options = getOptions(timeout);
     dataIn = getInfo(packetLength, timeout);
@@ -358,7 +364,7 @@ int getLocalAddress(int timeout) {
   return 0;
 }
 
-long getLongAddress(int timeout) {
+int getLongAddress(int timeout) {
   long startTime = millis();
   int addrByte = 'Z';
   while(xbee.available() < 8 && ((millis() - startTime) < timeout));
@@ -367,12 +373,15 @@ long getLongAddress(int timeout) {
       addrByte = escapedByte();
       if(addrString != null) {
         //address[i] = addrByte;
-        addrString[i] = hex(addrByte);
+        addrString[i] = hex(addrByte, 2);
+        //println(addrString[i]);
       }
     }
     //return address;
-    String addressString = join(addrString, "");
-    address = hex2long(addressString);
+    addressString = join(addrString, "");
+    //println("generated address string: " + addressString);
+    longAddress = hex2long(addressString);
+    //println("incoming address as a long: " + longAddress);
   }
   return 0;
 }
@@ -384,6 +393,7 @@ int[] getInfo(int packetLength, int timeout) {
     for(int i = 0; i < (packetLength - 12); i++) {
       if(dataIn != null) {
         dataIn[i] = escapedByte();
+        //println("data" + dataIn[i]);
       }
     }
     return dataIn;
@@ -417,13 +427,13 @@ void write() {
   if(dataIn != null && addrString != null) {
   //if(address[4] == dancer1Address[0] && address[5] == dancer1Address[1] &&
   //   address[6] == dancer1Address[2] && address[7] == dancer1Address[3]) {
-  if((address - dancer1.getMacAddress()) == 0) {
+  if((longAddress - dancer1.getMacAddress()) == 0) {
     for(int i = 0; i < 19; i++) {
       dancer1.setLevel(i, dataIn[i]);
     }
   //} else if(address[4] == dancer2Address[0] && address[5] == dancer2Address[1] &&
   //          address[6] == dancer2Address[2] && address[7] == dancer2Address[3]) {
-  } else if((address - dancer2.getMacAddress()) == 0) {
+  } else if((longAddress - dancer2.getMacAddress()) == 0) {
     for(int i = 0; i < 19; i++) {
       dancer2.setLevel(i, dataIn[i]);
     }
