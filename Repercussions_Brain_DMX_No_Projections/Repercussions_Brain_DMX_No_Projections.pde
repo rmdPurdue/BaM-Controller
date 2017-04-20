@@ -2,8 +2,8 @@
 import processing.serial.*;
 import oscP5.*;
 import netP5.*;
-import dmxP512.*;
-import controlP5.*;
+//import dmxP512.*;
+//import controlP5.*;
 
 //DmxP512 dmxOutput;
 //int universeSize = 128;
@@ -14,7 +14,7 @@ import controlP5.*;
 /*****     Objects for OSC, UDP, CP5 connections    *****/
 OscP5 oscP5;
 NetAddress myRemoteLocation;
-ControlP5 cp5;
+//ControlP5 cp5;
 
 /*****     Objects for XBee Communication        *****/
 int apiIdentifier,localAddress,packetLength;
