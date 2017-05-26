@@ -1,7 +1,27 @@
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
+
+import processing.serial.*; 
+import oscP5.*; 
+import netP5.*; 
+
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class Repercussions_Brain_DMX_No_Projections extends PApplet {
+
 // XBee API receipts built off of Justin Downs johnhenryhammer.com
-import processing.serial.*;
-import oscP5.*;
-import netP5.*;
+
+
+
 //import dmxP512.*;
 //import controlP5.*;
 
@@ -46,25 +66,25 @@ int fadeCount = 0;
 
 PFont dataFont, labelFont;
 
-void setup() {
+public void setup() {
   frameRate(30);
   
 /*****   Set address bytes for coordinator xbee  *****/
-  addressHigh[0] = char(0x00);
-  addressHigh[1] = char(0x13);
-  addressHigh[2] = char(0xA2);
-  addressHigh[3] = char(0x00);
-  dancer1Address[0] = char(0x40);
-  dancer1Address[1] = char(0xA7);
-  dancer1Address[2] = char(0x16);
-  dancer1Address[3] = char(0x37);
-  dancer2Address[0] = char(0x40);
-  dancer2Address[1] = char(0xA8);
-  dancer2Address[2] = char(0x9B);
-  dancer2Address[3] = char(0xBF);
+  addressHigh[0] = PApplet.parseChar(0x00);
+  addressHigh[1] = PApplet.parseChar(0x13);
+  addressHigh[2] = PApplet.parseChar(0xA2);
+  addressHigh[3] = PApplet.parseChar(0x00);
+  dancer1Address[0] = PApplet.parseChar(0x40);
+  dancer1Address[1] = PApplet.parseChar(0xA7);
+  dancer1Address[2] = PApplet.parseChar(0x16);
+  dancer1Address[3] = PApplet.parseChar(0x37);
+  dancer2Address[0] = PApplet.parseChar(0x40);
+  dancer2Address[1] = PApplet.parseChar(0xA8);
+  dancer2Address[2] = PApplet.parseChar(0x9B);
+  dancer2Address[3] = PApplet.parseChar(0xBF);
 
 /*****   Setup display window                   *****/
-  size(840,700);
+  
   //fullScreen();
   background(0,0,0);
 
@@ -106,7 +126,7 @@ void setup() {
   dancer2.setMacAddress(hex2long(MA2));
 }
 
-void draw() {
+public void draw() {
   //println("dancer 1's mac address is " + MA1);
   //println("dancer 1's mac address as a long int is " + dancer1.getMacAddress());
   //println("dancer 2's mac address as a long int is " + dancer2.getMacAddress());
@@ -126,7 +146,7 @@ void draw() {
   printOSC();
 }
 
-void oscEvent(OscMessage theOscMessage) {
+public void oscEvent(OscMessage theOscMessage) {
   println("Got OSC Message.");
   println("### received an OSC message.");
   println("Address Pattern: "+theOscMessage.addrPattern());
@@ -134,7 +154,7 @@ void oscEvent(OscMessage theOscMessage) {
   println("Timetag: "+theOscMessage.timetag());
 }
 
-long hex2long(String s) {
+public long hex2long(String s) {
   String digits = "0123456789ABCDEF";
   s = s.toUpperCase();
   long val = 0;
@@ -146,7 +166,7 @@ long hex2long(String s) {
    return val;
 }
 
-void printOSC() {
+public void printOSC() {
   /* create an osc bundle */
   OscBundle myBundle = new OscBundle();
   
@@ -188,7 +208,7 @@ void printOSC() {
   //oscP5.send(myBundle, myRemoteLocation);
 }
 
-OscMessage messageBuilder(int dancer, int location, int sensor) {
+public OscMessage messageBuilder(int dancer, int location, int sensor) {
   String[] addressComponents = new String[3]; 
   
   switch(dancer) {
@@ -283,7 +303,7 @@ OscMessage messageBuilder(int dancer, int location, int sensor) {
 //}
 
 /*****   Function for receiving XBee Packets    *****/
-void receive() {
+public void receive() {
   int timeout = 100;
   packetLength = checkHeader(timeout);
   //println("packetLength is " + packetLength);
@@ -301,7 +321,7 @@ void receive() {
   }
 }
 
-int checkHeader(int timeout) {
+public int checkHeader(int timeout) {
   long startTime = millis();
   int length = 0;
   int inByte = 0;
@@ -322,7 +342,7 @@ int checkHeader(int timeout) {
   return length;
 }
 
-int getChecksum(int timeout) {
+public int getChecksum(int timeout) {
   int checksum = 'Z';
   long startTime = millis();
   while(xbee.available() < 1 && ((millis() - startTime) < timeout));
@@ -333,7 +353,7 @@ int getChecksum(int timeout) {
   return 0;
 }
 
-int getIdentifier(int timeout) {
+public int getIdentifier(int timeout) {
   long startTime = millis();
   int apiIdentifier = 'Z';
   while(xbee.available() < 1 && ((millis() - startTime) < timeout));
@@ -344,7 +364,7 @@ int getIdentifier(int timeout) {
   return 'N';
 }
 
-int getLocalAddress(int timeout) {
+public int getLocalAddress(int timeout) {
   int localAddress = 0;
   long startTime = millis();
   while(xbee.available() < 2 && ((millis() - startTime) < timeout));
@@ -357,7 +377,7 @@ int getLocalAddress(int timeout) {
   return 0;
 }
 
-long getLongAddress(int timeout) {
+public long getLongAddress(int timeout) {
   long startTime = millis();
   int addrByte = 'Z';
   while(xbee.available() < 8 && ((millis() - startTime) < timeout));
@@ -381,7 +401,7 @@ long getLongAddress(int timeout) {
   //return 0;
 }
 
-int[] getInfo(int packetLength, int timeout) {
+public int[] getInfo(int packetLength, int timeout) {
   long startTime = millis();
   while(xbee.available() < (packetLength - 12) && ((millis() - startTime) < timeout));
   if(xbee.available() > 0) {
@@ -396,7 +416,7 @@ int[] getInfo(int packetLength, int timeout) {
   return null;
 }
 
-int getOptions(int timeout) {
+public int getOptions(int timeout) {
   int options = 'Z';
   long startTime = millis();
   while(xbee.available() < 1 && ((millis() - startTime) < timeout));
@@ -407,7 +427,7 @@ int getOptions(int timeout) {
   return '0';
 }
 
-int escapedByte() {
+public int escapedByte() {
   int outByte = 0;
   int inByte = xbee.read();
   if(inByte != 0x7D) {
@@ -418,7 +438,7 @@ int escapedByte() {
   return outByte;
 }
 
-void write() {
+public void write() {
    //println("dancer1's MAC Address " + dancer1.getMacAddress());
    //println("dancer2's MAC Address " + dancer2.getMacAddress());
   if(dataIn != null && addrString != null) {
@@ -460,43 +480,53 @@ class Dancer {
     level[25] = 20;
   }
   
-  void setState(int index, boolean value) {
+  public void setState(int index, boolean value) {
     state[index] = value;
   }
   
-  void setAddress(int index, int value) {
+  public void setAddress(int index, int value) {
     address[index] = value;
   }
   
-  long getMacAddress() {
+  public long getMacAddress() {
     return macAddress;
   }
   
-  void setMacAddress(long value) {
+  public void setMacAddress(long value) {
     macAddress = value;
   }
   
-  void setLevel(int index, int value) {
+  public void setLevel(int index, int value) {
     level[index] = value;
   }
   
-  boolean getState(int index) {
+  public boolean getState(int index) {
     return state[index];
   }
   
-  int getAddress(int index) {
+  public int getAddress(int index) {
     return address[index];
   }
   
-  int getLevel(int index) {
+  public int getLevel(int index) {
     return level[index];
   }
   
-  void setStringAddr(String addr) {
+  public void setStringAddr(String addr) {
     addressString = addr;
   }
   
-  String getStringAddr() {
+  public String getStringAddr() {
     return addressString;
+  }
+}
+  public void settings() {  size(840,700); }
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "Repercussions_Brain_DMX_No_Projections" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
   }
 }
