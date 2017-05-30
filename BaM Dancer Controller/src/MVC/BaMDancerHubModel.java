@@ -29,7 +29,7 @@ public class BaMDancerHubModel extends java.util.Observable {
      * @throws com.digi.xbee.api.exceptions.XBeeException
      */
     public void startXBee() throws XBeeException {
-        myXbee = new XBeeDevice("COM3", 9600);
+        //myXbee = new XBeeDevice("COM3", 9600);
         myXbee.open();
         myXbee.addDataListener(new myDataReceiveListener());
     }
