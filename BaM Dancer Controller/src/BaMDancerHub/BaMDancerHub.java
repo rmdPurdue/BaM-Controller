@@ -7,6 +7,7 @@ package BaMDancerHub;
 
 import MVC.*;
 import com.digi.xbee.api.exceptions.XBeeException;
+import java.net.UnknownHostException;
 /**
  *
  * @author Rich Dionne <rdionne@purdue.edu>
@@ -15,8 +16,11 @@ public class BaMDancerHub {
 
     /**
      * @param args the command line arguments
+     * @throws com.digi.xbee.api.exceptions.XBeeException
+     * @throws java.lang.InterruptedException
+     * @throws java.net.UnknownHostException
      */
-    public static void main(String[] args) throws XBeeException {
+    public static void main(String[] args) throws XBeeException, InterruptedException, UnknownHostException {
             
     // Create model and view
     BaMDancerHubView view = new BaMDancerHubView();

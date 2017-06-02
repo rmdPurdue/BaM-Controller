@@ -8,6 +8,7 @@ package MVC;
 import com.digi.xbee.api.exceptions.XBeeException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.UnknownHostException;
 
 /**
  *
@@ -44,8 +45,12 @@ public class BaMDancerHubController implements ActionListener {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public void startApplication() throws XBeeException {
+    public void startApplication() throws XBeeException, InterruptedException, UnknownHostException {
         view.setVisible(true);
-        model.startXBee();
+        model.startXbee();
+        Thread.sleep(1000);
+        model.addDancer("Dancer1",1234567890);
+        model.parseXbeeMessage();
+        model.generateOSCBundles();
     }
 }

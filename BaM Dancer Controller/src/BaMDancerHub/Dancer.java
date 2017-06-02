@@ -48,4 +48,8 @@ public class Dancer {
     public String getStringAddr() {
         return addressString;
     }
+    
+    public String getName() {
+        return name;
+    }
 }
