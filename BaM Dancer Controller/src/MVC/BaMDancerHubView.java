@@ -50,6 +50,9 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
         jLabel16 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextArea5 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
+        dancer1MACAddr = new javax.swing.JTextField();
+        dancer1SetMACAddr = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         dancer2Location = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
@@ -61,6 +64,9 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
         jTextArea2 = new javax.swing.JTextArea();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        dancer2MACAddr = new javax.swing.JTextField();
+        dancer2SetMACAddr = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         dancer3Location = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
@@ -72,6 +78,9 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
         jTextArea3 = new javax.swing.JTextArea();
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
+        dancer2SetMACAddr1 = new javax.swing.JButton();
+        dancer2MACAddr1 = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         dancer4Location = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
@@ -83,6 +92,9 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
         jTextArea4 = new javax.swing.JTextArea();
         jLabel31 = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        dancer2MACAddr2 = new javax.swing.JTextField();
+        dancer2SetMACAddr2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         dancer5Location = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
@@ -94,6 +106,9 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
         jLabel37 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTextArea6 = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
+        dancer2MACAddr3 = new javax.swing.JTextField();
+        dancer2SetMACAddr3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,7 +125,7 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
 
         jLabel14.setText("Location:");
 
-        jLabel17.setText("*Must not contain spaces, use underscores or hyphens instead");
+        jLabel17.setText("Must not contain spaces, use underscores or hyphens instead.");
 
         dancer1AddButton.setText("Add Sensor");
 
@@ -121,6 +136,21 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
         jTextArea5.setColumns(20);
         jTextArea5.setRows(5);
         jScrollPane5.setViewportView(jTextArea5);
+
+        jLabel1.setText("MAC Address for XBee Radio:");
+
+        dancer1MACAddr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dancer1MACAddrActionPerformed(evt);
+            }
+        });
+
+        dancer1SetMACAddr.setText("Set Address");
+        dancer1SetMACAddr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dancer1SetMACAddrActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -146,7 +176,13 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
                                 .addComponent(dancer1AddButton))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(110, 110, 110)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(dancer1MACAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dancer1SetMACAddr)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -154,12 +190,17 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(dancer1MACAddr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dancer1SetMACAddr))
+                .addGap(35, 35, 35)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel14)
@@ -170,12 +211,14 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
                         .addComponent(dancer1AddButton)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+                .addGap(14, 14, 14))
         );
 
         dancer1Location.getAccessibleContext().setAccessibleName("dancer1Location");
         dancer1Sensor.getAccessibleContext().setAccessibleName("dancer1Sensor");
         dancer1AddButton.getAccessibleContext().setAccessibleName("dancer1AddButton");
+        dancer1MACAddr.getAccessibleContext().setAccessibleName("dancer1MACAddr");
+        dancer1SetMACAddr.getAccessibleContext().setAccessibleName("dancer1SetMACAddr");
 
         jTabbedPane1.addTab("Dancer 1", jPanel1);
 
@@ -189,7 +232,7 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
 
         jLabel19.setText("Location:");
 
-        jLabel20.setText("*Must not contain spaces, use underscores or hyphens instead");
+        jLabel20.setText("Must not contain spaces, use underscores or hyphens instead.");
 
         dancer2AddButton.setText("Add Sensor");
 
@@ -201,6 +244,21 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
 
         jLabel22.setText("and location on the dancer's body. (eg. Location: left_ankle   Sensor: gyro)");
 
+        dancer2MACAddr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dancer2MACAddrActionPerformed(evt);
+            }
+        });
+
+        dancer2SetMACAddr.setText("Set Address");
+        dancer2SetMACAddr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dancer2SetMACAddrActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("MAC Address for XBee Radio:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -208,7 +266,6 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -219,23 +276,35 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
                         .addComponent(dancer2Sensor, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dancer2AddButton))
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel20)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(110, 110, 110)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(dancer2MACAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dancer2SetMACAddr))
+                    .addComponent(jLabel22)
+                    .addComponent(jLabel20)
+                    .addComponent(jLabel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(dancer2MACAddr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dancer2SetMACAddr))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel19)
@@ -253,6 +322,8 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
         dancer2Location.getAccessibleContext().setAccessibleDescription("");
         dancer2Sensor.getAccessibleContext().setAccessibleName("dancer2Sensor");
         dancer2AddButton.getAccessibleContext().setAccessibleName("dancer2AddButton");
+        dancer2MACAddr.getAccessibleContext().setAccessibleName("dancer2MACAddr");
+        dancer2SetMACAddr.getAccessibleContext().setAccessibleName("dancer2SetMACAddr");
 
         jTabbedPane1.addTab("Dancer 2", jPanel2);
 
@@ -272,7 +343,7 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
 
         jLabel24.setText("Location:");
 
-        jLabel25.setText("*Must not contain spaces, use underscores or hyphens instead");
+        jLabel25.setText("Must not contain spaces, use underscores or hyphens instead.");
 
         dancer3AddButton.setText("Add Sensor");
 
@@ -284,6 +355,21 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
 
         jLabel27.setText("and location on the dancer's body. (eg. Location: left_ankle   Sensor: gyro)");
 
+        dancer2SetMACAddr1.setText("Set Address");
+        dancer2SetMACAddr1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dancer2SetMACAddr1ActionPerformed(evt);
+            }
+        });
+
+        dancer2MACAddr1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dancer2MACAddr1ActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("MAC Address for XBee Radio:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -291,7 +377,12 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(dancer2MACAddr1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dancer2SetMACAddr1))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -302,23 +393,29 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
                         .addComponent(dancer3Sensor, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(dancer3AddButton))
-                    .addComponent(jLabel27)
-                    .addComponent(jLabel25)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(110, 110, 110)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel27)
+                    .addComponent(jLabel25)
+                    .addComponent(jLabel26, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(dancer2MACAddr1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dancer2SetMACAddr1))
+                .addGap(34, 34, 34)
                 .addComponent(jLabel26, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel27, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel24)
@@ -342,7 +439,7 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
 
         jLabel29.setText("Location:");
 
-        jLabel30.setText("*Must not contain spaces, use underscores or hyphens instead");
+        jLabel30.setText("Must not contain spaces, use underscores or hyphens instead.");
 
         jButton4.setText("Add Sensor");
 
@@ -353,6 +450,21 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
         jLabel31.setText("Add sensors to this dancer here. Each sensor should have a name ");
 
         jLabel32.setText("and location on the dancer's body. (eg. Location: left_ankle   Sensor: gyro)");
+
+        jLabel4.setText("MAC Address for XBee Radio:");
+
+        dancer2MACAddr2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dancer2MACAddr2ActionPerformed(evt);
+            }
+        });
+
+        dancer2SetMACAddr2.setText("Set Address");
+        dancer2SetMACAddr2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dancer2SetMACAddr2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -376,19 +488,30 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
                     .addComponent(jLabel30)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(110, 110, 110)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(18, 18, 18)
+                        .addComponent(dancer2MACAddr2, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dancer2SetMACAddr2)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(dancer2MACAddr2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dancer2SetMACAddr2))
+                .addGap(34, 34, 34)
                 .addComponent(jLabel31, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel32, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel29)
@@ -421,7 +544,7 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
 
         jLabel34.setText("Location:");
 
-        jLabel35.setText("*Must not contain spaces, use underscores or hyphens instead");
+        jLabel35.setText("Must not contain spaces, use underscores or hyphens instead.");
 
         dancer5AddButton.setText("Add Sensor");
 
@@ -432,6 +555,21 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
         jTextArea6.setColumns(20);
         jTextArea6.setRows(5);
         jScrollPane6.setViewportView(jTextArea6);
+
+        jLabel5.setText("MAC Address for XBee Radio:");
+
+        dancer2MACAddr3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dancer2MACAddr3ActionPerformed(evt);
+            }
+        });
+
+        dancer2SetMACAddr3.setText("Set Address");
+        dancer2SetMACAddr3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dancer2SetMACAddr3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -461,17 +599,29 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
                 .addGap(117, 117, 117)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(dancer2MACAddr3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(dancer2SetMACAddr3)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(dancer2MACAddr3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dancer2SetMACAddr3))
+                .addGap(34, 34, 34)
                 .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel37, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel35)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel34)
@@ -511,10 +661,6 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void dancer2LocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer2LocationActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_dancer2LocationActionPerformed
-
     private void dancer1SensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer1SensorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dancer1SensorActionPerformed
@@ -530,6 +676,50 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
     private void dancer5LocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer5LocationActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_dancer5LocationActionPerformed
+
+    private void dancer1MACAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer1MACAddrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer1MACAddrActionPerformed
+
+    private void dancer1SetMACAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer1SetMACAddrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer1SetMACAddrActionPerformed
+
+    private void dancer2SetMACAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer2SetMACAddrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer2SetMACAddrActionPerformed
+
+    private void dancer2MACAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer2MACAddrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer2MACAddrActionPerformed
+
+    private void dancer2LocationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer2LocationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer2LocationActionPerformed
+
+    private void dancer2MACAddr1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer2MACAddr1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer2MACAddr1ActionPerformed
+
+    private void dancer2SetMACAddr1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer2SetMACAddr1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer2SetMACAddr1ActionPerformed
+
+    private void dancer2MACAddr2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer2MACAddr2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer2MACAddr2ActionPerformed
+
+    private void dancer2SetMACAddr2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer2SetMACAddr2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer2SetMACAddr2ActionPerformed
+
+    private void dancer2MACAddr3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer2MACAddr3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer2MACAddr3ActionPerformed
+
+    private void dancer2SetMACAddr3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dancer2SetMACAddr3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dancer2SetMACAddr3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -577,10 +767,20 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton dancer1AddButton;
     private javax.swing.JTextField dancer1Location;
+    private javax.swing.JTextField dancer1MACAddr;
     private javax.swing.JTextField dancer1Sensor;
+    private javax.swing.JButton dancer1SetMACAddr;
     private javax.swing.JButton dancer2AddButton;
     private javax.swing.JTextField dancer2Location;
+    private javax.swing.JTextField dancer2MACAddr;
+    private javax.swing.JTextField dancer2MACAddr1;
+    private javax.swing.JTextField dancer2MACAddr2;
+    private javax.swing.JTextField dancer2MACAddr3;
     private javax.swing.JTextField dancer2Sensor;
+    private javax.swing.JButton dancer2SetMACAddr;
+    private javax.swing.JButton dancer2SetMACAddr1;
+    private javax.swing.JButton dancer2SetMACAddr2;
+    private javax.swing.JButton dancer2SetMACAddr3;
     private javax.swing.JButton dancer3AddButton;
     private javax.swing.JTextField dancer3Location;
     private javax.swing.JTextField dancer3Sensor;
@@ -590,6 +790,7 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
     private javax.swing.JTextField dancer5Location;
     private javax.swing.JTextField dancer5Sensor;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -597,6 +798,7 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -607,6 +809,7 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -615,6 +818,8 @@ public class BaMDancerHubView extends javax.swing.JFrame implements java.util.Ob
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
