@@ -116,7 +116,7 @@
                       <Component id="jLabel16" min="-2" pref="16" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="33" max="32767" attributes="0"/>
+                      <EmptySpace pref="39" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                               <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -128,7 +128,7 @@
                               <Component id="dancer1AddButton" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane5" min="-2" pref="154" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                   </Group>
@@ -417,9 +417,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="dancer2MACAddr1" min="-2" pref="134" max="-2" attributes="0"/>
+                              <Component id="dancer3MACAddr" min="-2" pref="134" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="dancer2SetMACAddr1" min="-2" max="-2" attributes="0"/>
+                              <Component id="dancer3SetMACAddr" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
@@ -450,8 +450,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dancer2MACAddr1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dancer2SetMACAddr1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dancer3MACAddr" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dancer3SetMACAddr" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="jLabel26" min="-2" pref="17" max="-2" attributes="0"/>
@@ -543,17 +543,23 @@
                 <Property name="text" type="java.lang.String" value="and location on the dancer&apos;s body. (eg. Location: left_ankle   Sensor: gyro)"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="dancer2SetMACAddr1">
+            <Component class="javax.swing.JButton" name="dancer3SetMACAddr">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Set Address"/>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="dancer3SetMACAddr"/>
+              </AccessibilityProperties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer2SetMACAddr1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer3SetMACAddrActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="dancer2MACAddr1">
+            <Component class="javax.swing.JTextField" name="dancer3MACAddr">
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="dancer3MACAddr"/>
+              </AccessibilityProperties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer2MACAddr1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer3MACAddrActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel3">
@@ -599,9 +605,9 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="dancer2MACAddr2" min="-2" pref="134" max="-2" attributes="0"/>
+                              <Component id="dancer4MACAddr" min="-2" pref="134" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="dancer2SetMACAddr2" min="-2" max="-2" attributes="0"/>
+                              <Component id="dancer4SetMACAddr" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -614,8 +620,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dancer2MACAddr2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dancer2SetMACAddr2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dancer4MACAddr" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dancer4SetMACAddr" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="jLabel31" min="-2" pref="17" max="-2" attributes="0"/>
@@ -707,17 +713,23 @@
                 <Property name="text" type="java.lang.String" value="MAC Address for XBee Radio:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="dancer2MACAddr2">
+            <Component class="javax.swing.JTextField" name="dancer4MACAddr">
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="dancer4MACAddr"/>
+              </AccessibilityProperties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer2MACAddr2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer4MACAddrActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="dancer2SetMACAddr2">
+            <Component class="javax.swing.JButton" name="dancer4SetMACAddr">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Set Address"/>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="dancer4SetMACAddr"/>
+              </AccessibilityProperties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer2SetMACAddr2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer4SetMACAddrActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -740,42 +752,47 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jLabel36" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel37" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="dancer5Location" min="-2" pref="82" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="dancer5Sensor" min="-2" pref="82" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="dancer5AddButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel36" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel37" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel35" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="dancer5Location" min="-2" pref="82" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jLabel33" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="dancer5Sensor" min="-2" pref="82" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="dancer5AddButton" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="dancer5MACAddr" min="-2" pref="134" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="dancer5SetMACAddr" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
                       <Component id="jScrollPane6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="dancer2MACAddr3" min="-2" pref="134" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="dancer2SetMACAddr3" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -785,8 +802,8 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dancer2MACAddr3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="dancer2SetMACAddr3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dancer5MACAddr" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="dancer5SetMACAddr" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="jLabel36" min="-2" pref="17" max="-2" attributes="0"/>
@@ -880,17 +897,23 @@
                 <Property name="text" type="java.lang.String" value="MAC Address for XBee Radio:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="dancer2MACAddr3">
+            <Component class="javax.swing.JTextField" name="dancer5MACAddr">
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="dancer5MACAddr"/>
+              </AccessibilityProperties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer2MACAddr3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer5MACAddrActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="dancer2SetMACAddr3">
+            <Component class="javax.swing.JButton" name="dancer5SetMACAddr">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Set Address"/>
               </Properties>
+              <AccessibilityProperties>
+                <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="dancer5SetMACAddr"/>
+              </AccessibilityProperties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer2SetMACAddr3ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dancer5SetMACAddrActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
